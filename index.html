@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parada Carioca - Delivery Moderno</title>
+    <title>Parada Carioca - Delivery</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -15,34 +15,30 @@
         * { box-sizing: border-box; font-family: 'Roboto', sans-serif; }
         body { background-color: var(--amarelo); margin: 0; padding: 0; color: var(--preto); }
 
-        /* Fachada */
+        /* Fachada com a Logo */
         .fachada {
-            background: linear-gradient(135deg, var(--preto) 0%, var(--amarelo) 100%);
-            height: 180px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background-color: var(--amarelo);
             border-bottom: 5px solid var(--preto);
-            margin-bottom: 20px;
-            color: var(--branco);
-            position: relative;
+            padding: 20px;
+            text-align: center;
         }
-        /* Substitua o link da imagem pelo seu logo ou deixe o texto */
-        .fachada img { max-height: 120px; margin-bottom: 10px; } 
-        .fachada h1 { font-size: 3rem; margin: 0; text-shadow: 3px 3px 0 var(--preto); letter-spacing: 2px; }
+        .fachada img {
+            max-width: 100%;
+            max-height: 200px;
+            display: block;
+            margin: 0 auto;
+        }
 
-        .container { max-width: 800px; margin: 0 auto; padding: 0 15px 100px 15px; background: var(--branco); border-radius: 15px 15px 0 0; margin-bottom: 70px; }
-        h2 { background: var(--preto); color: var(--amarelo); padding: 10px; border-radius: 5px; text-align: center; margin-top: 30px; }
-
-        .item { border-bottom: 1px dashed #ccc; padding: 15px 0; display: flex; flex-direction: column; gap: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 10px; border-radius: 10px; padding: 15px; }
-        .item-top { display: flex; justify-content: space-between; font-weight: 900; font-size: 1.2rem; }
+        .container { max-width: 600px; margin: 0 auto; padding: 0 15px 100px 15px; background: var(--branco); border-radius: 15px 15px 0 0; margin-bottom: 70px; box-shadow: 0 -5px 10px rgba(0,0,0,0.1); }
         
-        /* Espaço para fotos futuramente */
-        .foto-produto { width: 100%; height: 150px; background: #eee; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; color: #999; font-size: 0.9rem; }
-        .foto-produto img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+        h2 { background: var(--preto); color: var(--amarelo); padding: 12px; border-radius: 8px; text-align: center; margin-top: 25px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        .btn-add { background: var(--preto); color: var(--amarelo); border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        /* Lista Limpa de Produtos */
+        .item { padding: 15px; border-bottom: 1px solid #eee; display: flex; flex-direction: column; gap: 10px; }
+        .item-top { display: flex; justify-content: space-between; align-items: center; font-weight: 900; font-size: 1.2rem; }
+        .ingredientes { color: #555; font-size: 0.95rem; line-height: 1.4; }
+
+        .btn-add { background: var(--preto); color: var(--amarelo); border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: 0.2s; }
         .btn-add:hover { background: var(--amarelo); color: var(--preto); border: 1px solid var(--preto); }
 
         /* Carrinho Flutuante */
@@ -52,12 +48,12 @@
         .modal-carrinho { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999; }
         .modal-content { position: absolute; bottom: 0; left: 0; width: 100%; max-height: 90vh; background: var(--branco); border-radius: 20px 20px 0 0; padding: 20px; overflow-y: auto; }
         
-        input, select { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        label { font-weight: bold; }
-        .dados-entrega { background: #fff9e6; border: 1px solid var(--amarelo); padding: 10px; border-radius: 10px; }
+        input, select { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
+        label { font-weight: bold; margin-bottom: 5px; display: block; }
+        .dados-entrega { background: #fff9e6; border: 1px solid var(--amarelo); padding: 15px; border-radius: 10px; }
 
         .resumo-pedido { margin: 20px 0; border-top: 2px solid var(--preto); padding-top: 10px; }
-        .total-final { font-size: 1.5rem; font-weight: 900; text-align: right; }
+        .total-final { font-size: 1.5rem; font-weight: 900; text-align: right; margin-top: 10px; }
 
         .btn-finalizar { width: 100%; padding: 15px; background: var(--verde); color: white; border: none; border-radius: 10px; font-size: 1.2rem; font-weight: bold; cursor: pointer; }
         .carrinho-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ccc; padding: 10px 0; }
@@ -66,10 +62,10 @@
 </head>
 <body>
 
-    <!-- Fachada com o seu logo (Coloque o arquivo logo.png na pasta) -->
+    <!-- FACHADA: Coloque sua imagem como "logo.png" na pasta -->
     <div class="fachada">
+        <!-- Se a imagem não carregar, ela mostra o texto padrão -->
         <img src="logo.png" alt="Parada Carioca" onerror="this.style.display='none'">
-        <h1>PARADA CARIOCA</h1>
     </div>
 
     <div class="container">
@@ -77,14 +73,12 @@
         <h2>Lanches</h2>
         
         <div class="item">
-            <div class="foto-produto">[Futura Foto do X-Burguer]</div>
             <div class="item-top"><span>X-Burguer</span> <span>R$ 9,00</span></div>
             <div class="ingredientes">Pão, carne, queijo, molho de queijo e maionese temperada.</div>
             <button class="btn-add" onclick="addItem('X-Burguer', 9.00)">Adicionar</button>
         </div>
 
         <div class="item">
-            <div class="foto-produto">[Futura Foto do X-Salada]</div>
             <div class="item-top"><span>X-Salada</span> <span>R$ 10,00</span></div>
             <div class="ingredientes">Pão, carne, queijo, tomate, alface, molho de queijo e maionese temperada.</div>
             <button class="btn-add" onclick="addItem('X-Salada', 10.00)">Adicionar</button>
@@ -181,12 +175,12 @@
             <div id="lista-carrinho"></div>
             <div class="resumo-pedido">
                 <p>Subtotal: <span id="subtotal">R$ 0,00</span></p>
-                <p>Taxa de Entrega (Calculada Automáticamente): <span id="taxa">R$ 0,00</span></p>
+                <p>Taxa de Entrega (Automática): <span id="taxa">R$ 0,00</span></p>
                 <div class="total-final">Total: <span id="total">R$ 0,00</span></div>
             </div>
 
             <div class="dados-entrega">
-                <label>CEP (Preencha para calcular taxa e endereço):</label>
+                <label>CEP (Calcular taxa e endereço):</label>
                 <input type="text" id="cep" placeholder="00000-000" onblur="buscarCep()">
                 
                 <label>Endereço (Rua e Número):</label>
@@ -195,7 +189,6 @@
                 <label>Bairro / Cidade:</label>
                 <input type="text" id="bairro_cidade">
                 
-                <!-- A distância é calculada sozinha, sem opção para o cliente -->
                 <div id="resultado_distancia" style="font-size: 0.9rem; font-weight: bold; color: #555; margin: 10px 0;"></div>
                 
                 <label>Forma de Pagamento:</label>
@@ -213,10 +206,10 @@
     </div>
 
     <script>
-        // DADOS DA SUA LOJA (Edite aqui para o cálculo automático funcionar!)
-        // Use o Google Maps para encontrar a latitude e longitude do seu endereço (Rua Santa Luz, 2)
-        const LOJA_LAT = -22.8728; // EXEMPLO: Coloque a latitude exata da sua loja
-        const LOJA_LNG = -43.4103; // EXEMPLO: Coloque a longitude exata da sua loja
+        // DADOS DA SUA LOJA (MUITO IMPORTANTE!)
+        // Procure sua loja no Google Maps, clique com o botão direito nela e copie a Latitude e Longitude.
+        const LOJA_LAT = -22.8728; // Substitua pela Latitude exata da Rua Santa Luz, 2 - Vilar Carioca
+        const LOJA_LNG = -43.4103; // Substitua pela Longitude exata da Rua Santa Luz, 2 - Vilar Carioca
 
         let carrinho = [];
         
@@ -248,9 +241,8 @@
         function abrirCarrinho() { document.getElementById('modalCarrinho').style.display = 'block'; }
         document.getElementById('modalCarrinho').addEventListener('click', function(e) { if (e.target === this) this.style.display = 'none'; });
 
-        // Cálculo da distância (Fórmula de Haversine)
         function calcularDistancia(lat1, lon1, lat2, lon2) {
-            const R = 6371; // Raio da Terra em km
+            const R = 6371; 
             const dLat = (lat2 - lat1) * Math.PI / 180;
             const dLon = (lon2 - lon1) * Math.PI / 180;
             const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -260,7 +252,6 @@
             return R * c;
         }
 
-        // Buscar CEP via ViaCEP e Endereço via OpenStreetMap
         async function buscarCep() {
             let cep = document.getElementById('cep').value.replace(/\D/g, '');
             if (cep.length !== 8) return alert('CEP inválido!');
@@ -277,11 +268,9 @@
                 document.getElementById('endereco').value = endereco_rua;
                 document.getElementById('bairro_cidade').value = bairro_cidade;
                 
-                // Salvar endereço localmente (LocalStorage)
                 let enderecoSalvo = { cep: cep, rua: endereco_rua, bairro_cidade: bairro_cidade };
                 localStorage.setItem('endereco_parada', JSON.stringify(enderecoSalvo));
 
-                // Buscar Coordenadas do endereço usando OpenStreetMap (Gratuito)
                 let endereco_completo = `${endereco_rua}, ${bairro_cidade}`;
                 const nominatim = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(endereco_completo)}`);
                 const localizacao = await nominatim.json();
@@ -291,34 +280,29 @@
                     let lat_cliente = parseFloat(localizacao[0].lat);
                     let lng_cliente = parseFloat(localizacao[0].lon);
                     
-                    // Calcula distância em linha reta
                     distancia = calcularDistancia(LOJA_LAT, LOJA_LNG, lat_cliente, lng_cliente);
-                    
                     document.getElementById('resultado_distancia').innerText = `Distância calculada: ${distancia.toFixed(2)} km`;
                 } else {
-                    document.getElementById('resultado_distancia').innerText = "Não foi possível calcular a distância automaticamente.";
+                    document.getElementById('resultado_distancia').innerText = "Não foi possível calcular a distância.";
                 }
 
                 calcularTotal();
             }
         }
 
-        // Calcular Total com a Taxa Automática
+        // CALCULO SIMPLES DA TAXA (Até 1km: 3, Passou de 1km: 5, Passou de 2km: 9)
         function calcularTotal() {
             let subtotal = carrinho.reduce((acc, item) => acc + item.preco, 0);
             let taxa = 0;
             
-            // Regras de taxas fornecidas
             let distancia_texto = document.getElementById('resultado_distancia').innerText;
             let match = distancia_texto.match(/(\d+\.\d+)/);
             let distancia_km = match ? parseFloat(match[1]) : 0;
 
-            // Aplica as taxas com base na distância automática
             if (distancia_km > 0) {
-                if (distancia_km < 1) taxa = 3.00;
-                else if (distancia_km < 1.5) taxa = 5.00;
-                else if (distancia_km < 2) taxa = 7.00;
-                else taxa = 9.00;
+                if (distancia_km <= 1) { taxa = 3.00; }
+                else if (distancia_km <= 2) { taxa = 5.00; }
+                else { taxa = 9.00; }
             }
 
             let total = subtotal + taxa;
@@ -326,7 +310,6 @@
             document.getElementById('total').innerText = `R$ ${total.toFixed(2)}`;
         }
 
-        // Carregar endereço salvo ao abrir a página
         window.onload = function() {
             let enderecoSalvo = localStorage.getItem('endereco_parada');
             if (enderecoSalvo) {
@@ -337,7 +320,6 @@
             }
         };
 
-        // Enviar Pedido para o WhatsApp
         function finalizarPedido() {
             if (carrinho.length === 0) return alert('Seu carrinho está vazio!');
 
